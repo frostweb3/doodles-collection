@@ -1,8 +1,8 @@
 import { ipfs, json, log } from '@graphprotocol/graph-ts'
 import {
-  Transfer as TransferEvent,
-  Token as TokenContract
+  Transfer as TransferEvent
 } from '../generated/Token/Token'
+
 import {
 Token, User
 } from '../generated/schema'
