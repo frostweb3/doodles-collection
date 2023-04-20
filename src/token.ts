@@ -21,9 +21,8 @@ export function handleTransfer(event: TransferEvent): void {
 
     /* combine the ipfs hash and the token ID to fetch the token metadata from IPFS */
     let metadata = ipfs.cat(ipfshash + token.tokenURI)
-    // log.info('Will there be metadata? {}', [""])
+
     if (metadata) {
-      // log.info('Metadata: {}', [metadata.toString()])
       const jsonMetadata = json.fromBytes(metadata).toObject()
       if (jsonMetadata) {
         /* using the metatadata from IPFS, update the token object with the values  */
