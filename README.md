@@ -256,9 +256,9 @@ Paste in this query to fetch first 3 tokens from the collection
 }
 ```
 
-You should see something like this 
+Your result will show 
 
-```graphql
+```json
 {
   "data": {
     "tokens": [
@@ -300,7 +300,7 @@ To do a full text search for a token name use this query
 
 The response should be something like this 
 
-```graphql
+```json
 {
   "data": {
     "attributeSearch": [
