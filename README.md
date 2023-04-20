@@ -9,19 +9,19 @@ Read more about [The Graph protocol](https://thegraph.com/en/)
 
 In order to work with the graph command line interface, install the package
 
-```
+```sh
 npm install -g @graphprotocol/graph-cli
 ```
 
 Check if it is installed with 
-```
+```sh
 graph --version
 ```
 
 ## Initialize the subgraph project
 Run the 
 
-```
+```sh
 graph init --product hosted-service <your-username>/doodles-collection
 ```
 
@@ -29,7 +29,7 @@ command to create a new subgraph.
 
 To create a subgraph for ERC721 collection on Ethereum mainnet choose the follwoing options:
 
-```
+```sh
 ✔ Protocol · ethereum
 
 ✔ Subgraph name · <your-username>/doodles-collection
@@ -71,7 +71,7 @@ Add another contract? (y/n): n
 Open the `schema.graphql` file and define `Token` and `User` (represents the token receiver) entities
 
 
-```
+```yaml
 type Token @entity {
   id: ID!
   name: String!
@@ -92,7 +92,7 @@ Read more about [defining entities](https://thegraph.com/docs/en/developing/crea
 ## Define the used entities in the subgraph.yaml file
 
 In the `subgraph.yaml` file, specify the used entities
-```
+```yaml
 dataSources:
     ...
     mapping:
@@ -105,7 +105,7 @@ dataSources:
 ## Add a full text search
 In the `schema.graphql` file, add the following
 
-```
+```graphql
 type _Schema_
   @fulltext(
     name: "attributeSearch"
@@ -123,7 +123,7 @@ This will allow us to do a full text search on the token names.
 
 In the `subgraph.yaml` file, enable the `fullTextSearch` and `ipfsOnEthereumContracts` features
 
-```
+```yaml
 features:
   - fullTextSearch
   - ipfsOnEthereumContracts
@@ -135,7 +135,7 @@ We will need the IPFS feature in next steps.
 
 In order to run the AssemblyScript generation, execute the command
 
-```
+```sh
 graph codegen
 ```
 
@@ -145,7 +145,7 @@ This will create or update files under `generated/` directory.
 
 Use this code inside of the 'src/token.ts` file
 
-```
+```typescript
 import { ipfs, json, log } from '@graphprotocol/graph-ts'
 import {
   Transfer as TransferEvent
@@ -204,7 +204,7 @@ This function will be called any time that a `Transfer` event gets indexed.
 
 In the `subgraph.yaml` file, add these lines (`dataSources.mapping.eventHandlers` section)
 
-```
+```yaml
 dataSources:
   ...
     source: ...
@@ -222,7 +222,7 @@ Now any time a transfer event is being indexed `handleTransfer` function will ge
 ## Authenticate with your deploy key
 Run this command to auth
 
-```
+```sh
 graph auth --product hosted-service <your-username>/doodles-collection
 ```
 
@@ -230,13 +230,13 @@ graph auth --product hosted-service <your-username>/doodles-collection
 
 To deploy your subgraph, run the following command
 
-```
+```sh
 graph deploy --product hosted-service <your-username>/doodles-collection
 ```
 
 After this completes successfully, you should see an URL like this
 
-```
+```sh
 Deployed to https://thegraph.com/explorer/subgraph/<your-username>/doodles-collection
 ```
 
@@ -245,7 +245,7 @@ Deployed to https://thegraph.com/explorer/subgraph/<your-username>/doodles-colle
 Visit the link above to open the playground.
 Paste in this query to fetch first 3 tokens from the collection
 
-```
+```graphql
 {
   tokens(first: 3) {
     id
@@ -258,7 +258,7 @@ Paste in this query to fetch first 3 tokens from the collection
 
 You should see something like this 
 
-```
+```graphql
 {
   "data": {
     "tokens": [
@@ -287,7 +287,7 @@ You should see something like this
 
 To do a full text search for a token name use this query
 
-```
+```graphql
 {
   attributeSearch(
     text: "12"
@@ -300,7 +300,7 @@ To do a full text search for a token name use this query
 
 The response should be something like this 
 
-```
+```graphql
 {
   "data": {
     "attributeSearch": [
